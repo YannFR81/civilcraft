@@ -593,6 +593,9 @@ export function install(host) {
         arcgis: t('mapl.help.arcgis'),
       }[k];
       const kids = [el('p', { className: 'cv-note' }, help), el('div', { className: 'cv-props' }, ...field(t('mapl.f.url'), url))];
+      // France: the IGN Géoplateforme layers in one click (basemap.js IGN_LAYERS; WMTS, no capabilities to read)
+      if (k === 'wmts') kids.unshift(el('div', { className: 'cv-map-ign', dataset: { mapIgnBox: '' } }, el('p', { className: 'cv-note' }, t('mapl.ign.help')),
+        el('div', { className: 'cv-links' }, ...B.IGN_LAYERS.map((L) => el('button', { type: 'button', className: 'btn-line btn-sm-cc', dataset: { mapIgn: L.id } }, L.name)))));
       if (k === 'xyz') {
         const name = el('input', { type: 'text', className: 'cv-input', id: id + '-name', placeholder: t('mapl.f.name'), dataset: { mapName: '' } });
         const att = el('input', { type: 'text', className: 'cv-input', id: id + '-att', placeholder: t('mapl.att.placeholder'), dataset: { mapAtt: '' } });
@@ -718,6 +721,7 @@ export function install(host) {
       if (d.mapStop !== undefined) { ctrl?.abort(); return; }
       if (d.mapAddFound !== undefined) { addFound(); return; }
       if (d.mapAddXyz !== undefined) { addXyz(); return; }
+      if (d.mapIgn) { const f = B.ignLayer(d.mapIgn); if (f) { addMap(record({ ...f, crs: crsFromEntry(byCode(3857)) })); status.textContent = internetOn() ? t('mapl.added') : t('mapl.added_off'); } return; }
       if (d.mapRemove) { const m = maps().find((x) => x.id === d.mapRemove); edit(t('mapl.undo.remove', { name: m?.name || '' }), (l) => { const i = l.findIndex((x) => x.id === d.mapRemove); if (i >= 0) l.splice(i, 1); }); runtime.delete(d.mapRemove); return; }
       if (d.mapMove) { edit(t('mapl.undo.reorder'), (l) => { const i = l.findIndex((x) => x.id === d.mapMove), j = i + Number(d.d); if (i >= 0 && j >= 0 && j < l.length) [l[i], l[j]] = [l[j], l[i]]; }); return; }
       if (d.mapZoom) { const m = maps().find((x) => x.id === d.mapZoom), cv = m && conv(m); if (!cv) return; const xs = [], ys = []; for (const [u, v] of [[0, 0], [m.width, 0], [m.width, m.height], [0, m.height]]) { const [x, y] = cv.fromSrc(...B.pixelToSystem([m.a0, m.a1, m.a2, m.a3, m.a4, m.a5], u, v)); xs.push(x); ys.push(y); } host.view.fit({ minX: Math.min(...xs), minY: Math.min(...ys), maxX: Math.max(...xs), maxY: Math.max(...ys) }); }

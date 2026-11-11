@@ -1,0 +1,18 @@
+{
+  "id": "site-ign-buildings",
+  "name": "Buildings (IGN BD TOPO, France)",
+  "version": "0.9.0",
+  "apps": [
+    "civilcraft"
+  ],
+  "api": "1.0",
+  "license": "Apache-2.0",
+  "entry": "./main.js",
+  "permissions": [
+    "network"
+  ],
+  "description": "Reads the building footprints, heights and floors around the point from the IGN BD TOPO through the Géoplateforme WFS (open licence Etalab 2.0; France only). It asks the service only when you press its button in Surface › More › Address to site; nothing is sent at start-up, no key is used, and the answer is kept 24 hours in this browser.",
+  "author": "YannFR81",
+  "lang": "./lang/",
+  "default": "off"
+}

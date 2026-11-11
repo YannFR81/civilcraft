@@ -471,7 +471,7 @@ function init(root) {
   const undoHook = mountUndoHook({ getProject: () => project });   // 0.8 EG.77 undo across apps (follows the project when a file opens: rebind)
   // 0.8 AL.6 "This file uses …": before a save the shell records which add-ons the file's data came from ({ id: version } under `usesAddons`); after an
   // open it offers the ones this computer lacks, in a bar above the plan. Regulation ticks come from `regs`; each Address-to-site source from its add-on.
-  const SITE_ADDON = { 'county-parcels': 'site-county-parcels', 'fema-nfhl': 'site-fema-flood', 'geocode-osm': 'site-geocode-osm', 'osm-buildings': 'site-osm-buildings', 'ssurgo-sda': 'site-ssurgo-soil', 'usgs-epqs': 'site-usgs-elevation' };
+  const SITE_ADDON = { 'county-parcels': 'site-county-parcels', 'fema-nfhl': 'site-fema-flood', 'geocode-osm': 'site-geocode-osm', 'osm-buildings': 'site-osm-buildings', 'ssurgo-sda': 'site-ssurgo-soil', 'usgs-epqs': 'site-usgs-elevation', 'geocode-ign': 'site-ign-geocode', 'ign-alti': 'site-ign-elevation', 'ign-bdtopo-buildings': 'site-ign-buildings', 'ign-cadastre': 'site-ign-parcels', 'gpu-zoning': 'site-gpu-zoning' };
   Project.stamp = (p) => {
     const f = window.ccAddonsFile;
     if (!f) return null;

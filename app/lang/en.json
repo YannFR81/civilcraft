@@ -3033,6 +3033,7 @@
   "mapl.help.xyz": "A tile URL has {{z}}, {{x}} and {{y}} (or {{-y}}) where the zoom, column and row go; {{s}} picks a server letter. Tiles are in web Mercator and are warped into the project’s system.",
   "mapl.help.wms": "The WMS address (its GetCapabilities link works too). CivilCraft asks for the server’s layers, then for one picture of the area on screen in the project’s EPSG code when the server offers it, else in web Mercator or WGS 84 (warped).",
   "mapl.help.wmts": "The WMTS address, or its WMTSCapabilities.xml. CivilCraft uses a tile matrix set in the project’s system when there is one, else web Mercator (warped).",
+  "mapl.ign.help": "France: the IGN Géoplateforme layers in one click (web Mercator, Licence Ouverte Etalab 2.0). Or give another WMTS server below.",
   "mapl.help.arcgis": "An ArcGIS map or image service: the URL ends in /MapServer or /ImageServer. Cached services in web Mercator are drawn from their tiles; others are asked for one picture of the area on screen.",
   "mapl.f.url": "URL",
   "mapl.f.name": "Name",

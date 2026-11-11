@@ -19,6 +19,7 @@
  *   XYZ_GRID (web Mercator, z 0…22) · gridTiles(grid, bbox, res, {cap}) → { matrix, tiles: [{ col, row, bounds }] }
  *   pickMatrix(grid, res) — the finest matrix not finer than the screen needs (never more than ~1.5× the screen's pixels)
  *
+ * France: IGN_LAYERS (BD ORTHO, Plan IGN, cadastre, contours) · ignLayer(id) → a WMTS map record's fields, no fetch needed
  * Servers: parseWmsCapabilities(text) · parseWmtsCapabilities(text) · parseArcgisService(json, url) (each throws a plain
  *   Error for junk, caps sizes and counts, keeps only text) · codeOfCrs('urn:ogc:def:crs:EPSG::3857') → 3857 (CRS84 → 4326,
  *   900913/102100/102113 → 3857) · wmsPickCode(layerCodes, projectCode) · wmsGetMapUrl(…) (1.3.0 axis order for
@@ -52,6 +53,25 @@ export const XYZ_GRID = Object.freeze({
   code: 3857, origin: [-HALF_MERC, HALF_MERC],
   matrices: Array.from({ length: 23 }, (_, z) => Object.freeze({ id: String(z), res: (2 * HALF_MERC) / 256 / 2 ** z, tw: 256, th: 256, mw: 2 ** z, mh: 2 ** z })),
 });
+/** IGN Géoplateforme (France, Licence Ouverte Etalab 2.0): ready-made WMTS layers on the web Mercator set PM, so no
+ *  capabilities fetch is needed. maxZ = the deepest level the service serves for that layer (checked 2026-11: deeper
+ *  levels answer 404), so the plan stretches that level instead of asking for tiles that do not exist. */
+export const IGN_WMTS = 'https://data.geopf.fr/wmts';
+export const IGN_ATTRIBUTION = 'IGN – Géoplateforme, Licence Ouverte Etalab 2.0';
+export const IGN_LAYERS = Object.freeze([
+  { id: 'ign-ortho', name: 'IGN BD ORTHO (photographies aériennes)', layer: 'ORTHOIMAGERY.ORTHOPHOTOS', style: 'normal', format: 'image/jpeg', maxZ: 19 },
+  { id: 'ign-plan', name: 'Plan IGN', layer: 'GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2', style: 'normal', format: 'image/png', maxZ: 19 },
+  { id: 'ign-cadastre', name: 'IGN Parcellaire Express (cadastre)', layer: 'CADASTRALPARCELS.PARCELLAIRE_EXPRESS', style: 'PCI vecteur', format: 'image/png', maxZ: 19 },
+  { id: 'ign-contours', name: 'IGN courbes de niveau', layer: 'ELEVATION.CONTOUR.LINE', style: 'normal', format: 'image/png', maxZ: 18 },
+]);
+/** The map record fields (gis-map-ui.js record()) for one IGN layer: a WMTS on PM with its grid cut at maxZ. */
+export function ignLayer(id) {
+  const L = IGN_LAYERS.find((x) => x.id === id);
+  if (!L) return null;
+  const grid = { code: 3857, origin: XYZ_GRID.origin, matrices: XYZ_GRID.matrices.slice(0, L.maxZ + 1) };
+  return { kind: 'wmts', name: L.name, url: IGN_WMTS, layer: L.layer, style: L.style, format: L.format, set: 'PM', grid: gridJson(grid), attribution: IGN_ATTRIBUTION };
+}
+
 /** Tile column/row of a lon/lat at zoom z (whole numbers). */
 export function tileAt(lon, lat, z) {
   const [x, y] = lonLatToMerc(lon, lat), m = XYZ_GRID.matrices[z];

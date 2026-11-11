@@ -3,7 +3,7 @@ title: Show map layers under the plan
 summary: Put a georeferenced picture, map tiles, a WMS or WMTS server or a map service under the plan as site context, with the internet setting, opacity, order and attribution.
 section: tasks
 order: 135
-keywords: map layers, basemap, base map, background, aerial, orthophoto, imagery, satellite, raster, world file, pgw, jgw, tfw, wld, geotiff, georeferenced image, xyz, tiles, slippy map, wms, wmts, getcapabilities, map service, rest, mapserver, imageserver, usgs, national map, attribution, opacity
+keywords: ign, géoplateforme, bd ortho, plan ign, cadastre, france, map layers, basemap, base map, background, aerial, orthophoto, imagery, satellite, raster, world file, pgw, jgw, tfw, wld, geotiff, georeferenced image, xyz, tiles, slippy map, wms, wmts, getcapabilities, map service, rest, mapserver, imageserver, usgs, national map, attribution, opacity
 ---
 
 Map layers are pictures drawn under your design: an aerial photo with its world file, or maps from servers on the internet. They are site context on screen only: they are **not** in PDF plots, DXF or DWG exports, or the 3D view.
@@ -46,6 +46,10 @@ No servers come preset. Public examples, all from the USGS National Map (public 
 - Map service: `https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer` (also `USGSImageryOnly` for aerial photos)
 
 Many city and county GIS departments publish their own WMS or map services; their GIS pages give the address. A server that asks for a sign-in or a key does not work: CivilCraft sends no user names, passwords or keys.
+
+## In France: IGN layers in one click
+
+Choose **WMTS server**: four buttons add the IGN Géoplateforme layers without reading the server first: **IGN BD ORTHO** (aerial photographs), **Plan IGN**, **IGN Parcellaire Express** (cadastre) and **IGN contour lines**. They are open (Licence Ouverte Etalab 2.0); the credit line is kept with the layer. They are drawn in web Mercator and warped onto a project in Lambert 93 or a CC zone. The photographs and the plan go down to level 19 (about 0.3 m a pixel) and the contours to level 18; nearer than that the deepest level is stretched.
 
 ## How layers are drawn
 
