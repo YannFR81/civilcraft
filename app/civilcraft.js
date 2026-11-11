@@ -47,6 +47,7 @@ import { unitOf, formatStation, parseStation, fixed, pct, volumeText, areaText, 
 import { limitSelect, onUnitsChange } from './unit-prefs.js';   // 0.7 UNITS: Settings › General › Units
 import { buildProfile } from './profile.js';
 import { STANDARDS, cleanNorm, checkAlignment } from './standards-fr.js';   // French road design standards
+import { elementTable, gisement, tableCsv } from './axis-table.js';   // the table of the axis's elements (French practice: gisements in gons)
 import { polyArea, pointInPoly } from './tin.js';
 import { METHODS as GRID_METHODS } from './gridding.js';   // 0.9 D9.6
 import { normAng } from './alignment.js';
@@ -923,6 +924,7 @@ function init(root) {
       })));
       out.push(el('p', { className: 'cv-note' }, t('cv.al.curves.note')));
     }
+    if (al.ok) out.push(...axisTableBlock(a, al));
     if (al.ok) out.push(el('p', { className: 'cv-note' }, t('cv.al.tangent', { b: bearing(al.elements[0].dir ?? al.elements[0].dirIn) })));
     out.push(...normBlock(a, al));   // the French design standard: the curves and the profile checked against it
     // 0.7.1 71.26: railway — track, gauge, transitions, cant per curve, limits, warnings, the cant diagram, quantities
@@ -976,6 +978,33 @@ function init(root) {
     }
     out.push(el('p', { className: 'cv-note' }, S.name + '. ' + t('nf.source', { src: S.source })));
     return out;
+  }
+
+  /** The table of the axis's elements (axis-table.js): every straight, arc and transition with its stations, length, radii, A,
+   *  direction at its start and start point; directions as gisements (gons, from north, clockwise) or as bearings; CSV out
+   *  (a French spreadsheet's ; and , when the page is in French). The angle choice is this session's, not the project's. */
+  let axisAngle = null;
+  function axisTableBlock(a, al) {
+    const rows = elementTable(al);
+    if (!rows.length) return [];
+    if (!axisAngle) axisAngle = /^fr/i.test(document.documentElement.lang || '') ? 'gon' : 'bearing';
+    const st = (v) => formatStation(v, units()), f2 = (v) => fixed(v, 2), rr = (v) => (v === null ? '∞' : f2(v));
+    const ang = (d) => (axisAngle === 'gon' ? fixed(gisement(d), 4) + ' gon' : bearing(d));
+    const typeName = (r) => (r.type === 'line' ? t('at.line') : r.type === 'arc' ? t('at.arc') : r.kind === 'clothoid' ? t('at.clothoid') : t('at.transition', { kind: r.kind }));
+    const sideName = (r) => (r.side === 'L' ? t('at.left') : r.side === 'R' ? t('at.right') : '');
+    const sel = el('select', { className: 'cv-select', id: 'cv-at-angle', 'data-at-angle': '' }, el('option', { value: 'gon', selected: axisAngle === 'gon' }, t('at.angle.gon')), el('option', { value: 'bearing', selected: axisAngle === 'bearing' }, t('at.angle.bearing')));
+    sel.addEventListener('change', () => { axisAngle = sel.value; renderProps(); });
+    const head = [t('at.col.n'), t('at.col.type'), t('at.col.sta0'), t('at.col.sta1'), t('at.col.len'), t('at.col.r'), t('at.col.a'), axisAngle === 'gon' ? t('at.col.gis') : t('at.col.dir'), t('at.col.x'), t('at.col.y')];
+    const tbody = el('tbody', { 'data-axis-table': '' }, ...rows.map((r) => el('tr', {},
+      el('td', {}, String(r.n)), el('td', {}, typeName(r) + (r.side ? ' (' + sideName(r) + ')' : '')), el('td', {}, st(r.sta0)), el('td', {}, st(r.sta1)), el('td', {}, f2(r.len)),
+      el('td', {}, r.type === 'line' ? '—' : r.type === 'arc' ? f2(r.r0) : rr(r.r0) + ' → ' + rr(r.r1)), el('td', {}, r.A === null ? '—' : f2(r.A)), el('td', {}, ang(r.dir0)), el('td', {}, f2(r.x0)), el('td', {}, f2(r.y0)))));
+    const fr = /^fr/i.test(document.documentElement.lang || '');
+    const csvBtn = el('button', { type: 'button', className: 'btn-line btn-sm-cc', 'data-at-csv': '', onclick: () => {
+      const text = tableCsv(rows, { sep: fr ? ';' : ',', dec: fr ? ',' : '.', angle: axisAngle === 'gon' ? 'gon' : 'deg', head: [t('at.col.n'), t('at.col.type'), t('at.col.side'), t('at.col.sta0'), t('at.col.sta1'), t('at.col.len'), t('at.col.r0'), t('at.col.r1'), t('at.col.a'), axisAngle === 'gon' ? t('at.col.gis') : t('at.csv.deg'), t('at.col.x0'), t('at.col.y0'), t('at.col.x1'), t('at.col.y1')] });
+      download('\ufeff' + text, fileStem() + '-' + (a.name || 'axe').replace(/[\\/:*?"<>|]+/g, '_') + '-elements.csv', 'text/csv;charset=utf-8'); say(t('at.csv.done')); } }, el('i', { className: 'bi bi-filetype-csv', 'aria-hidden': 'true' }), ' ', t('at.csv'));
+    return [el('h3', { className: 'cv-h3' }, t('at.head')), el('div', { className: 'cv-props' }, ...row(t('at.angle'), sel, 'cv-at-angle')),
+      el('div', { className: 'cv-table-wrap' }, el('table', { className: 'cv-table', 'data-axis-elements': '' }, el('thead', {}, el('tr', {}, ...head.map((h) => el('th', { scope: 'col' }, h)))), tbody)),
+      el('p', { className: 'cv-note' }, t(axisAngle === 'gon' ? 'at.note.gon' : 'at.note.bearing')), el('div', { className: 'cv-actions' }, csvBtn)];
   }
 
   /**

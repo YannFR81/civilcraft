@@ -3,7 +3,7 @@ title: Lay out a horizontal alignment
 summary: Draw an alignment by its PIs, set curve radii and the start station, move PIs, and read the curve data and station and offset.
 section: tasks
 order: 40
-keywords: alignment, no solution, curve does not fit, largest radius, smallest radius, minimum radius, design speed, french standard, arp, ictaal, ictavru, dévers, clothoïde, overlap, centerline, pi, horizontal curve, radius, stationing, tangent, create alignment, alignment layout, pc, pt, station offset
+keywords: alignment, table of elements, tableau des éléments, gisement, gons, grades, no solution, curve does not fit, largest radius, smallest radius, minimum radius, design speed, french standard, arp, ictaal, ictavru, dévers, clothoïde, overlap, centerline, pi, horizontal curve, radius, stationing, tangent, create alignment, alignment layout, pc, pt, station offset
 ---
 
 An alignment in CivilCraft is a chain of tangents through points of intersection (PIs), with a circular curve at any interior PI that has a radius. It is stationed from a start station you choose. A project can hold many alignments.
@@ -100,6 +100,13 @@ The category's values are listed (Rm, Rdm, Rnd, the crest and sag radii, the max
 - In the corridor's **Superelevation** block, **Rates from …** fills the rate table from the standard's law: each radius gets the law's value rounded up to the next 0.5 %.
 
 The standards are in metres; in a project in feet the radii are converted. They are tables of data with their source: check them against the guide for a real project.
+
+## Table of elements
+
+Under the curves, **Table of elements** lists every element of the axis in order: straights, arcs and transitions (clothoids), with the station at each end, the length, the radius (∞ → R and R → ∞ for a clothoid), the clothoid parameter A = √(R·L), the direction at its start and its start point.
+
+- **Directions**: **Gisement (gons)**, the French surveyor's direction from north, clockwise, 400 gons a turn; or **Bearing (degrees)**. When the page is in French the gisement is the default.
+- **Table of elements as CSV** saves the table, with the end points too. When the page is in French the file uses ; between columns and a decimal comma, so a French spreadsheet opens it as numbers.
 
 ## Spirals
 
