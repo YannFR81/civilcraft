@@ -82,6 +82,7 @@ import { cleanProgress } from './progress.js';   // 0.8 EG.39: the survey rows k
 import { cleanPowerlines } from './powerline/model.js';   // 0.7 PL: the Power lines workspace (docs/0.7-PART8.md)
 import { cleanDescKeys, cleanLineCodes, grouper, figures } from './desckeys.js';   // 0.4 V16: description keys, line codes
 import { t } from './i18n.js';
+import { cleanNorm } from './standards-fr.js';   // French road design standards (alignment.norm)
 import { cleanAcceptedCivil } from './problems-civilcraft.js';   // 0.7.1 → 0.8: problems accepted as intended (docs/0.8-PROBLEMS-SPEC.md)
 import { cleanIdsRecord, idsTextStore } from './ids/record.js';   // 0.7.1 71.25: the IDS the IFC export is checked against (cc-ids, lib/ids synced)
 
@@ -675,7 +676,8 @@ export class Project {
       const minR = fin(a.minR) && a.minR > 0 && a.minR < 1e7 ? a.minR : 0;   // 0.5 WL.23: design minimum radius (0 = none)
       const design = cleanDesign(a.design);   // 0.7.1 71.24: design speed and class (older files: none)
       const rail = cleanRail(a.rail, s.units);   // 0.7.1 71.26: a track (older files: none)
-      return { id: id(a.id, 'a'), name: str(a.name, 120) || t('scene.al.default'), start: fin(a.start) ? a.start : 0, pis, pvis, corridor, sampling: cleanSampling(a.sampling, s.units), ...(more.length ? { corridors: more } : {}), ...(minR ? { minR } : {}), ...(design ? { design } : {}), ...(rail ? { rail } : {}) };
+      const norm = cleanNorm(a.norm);   // a French design standard and category (standards-fr.js; older files: none)
+      return { id: id(a.id, 'a'), name: str(a.name, 120) || t('scene.al.default'), start: fin(a.start) ? a.start : 0, pis, pvis, corridor, sampling: cleanSampling(a.sampling, s.units), ...(more.length ? { corridors: more } : {}), ...(minR ? { minR } : {}), ...(design ? { design } : {}), ...(rail ? { rail } : {}), ...(norm ? { norm } : {}) };
     }, 1000);
     s.pads = list(obj.pads, (d) => {
       const q = list(d?.pts, xy, 1e4);

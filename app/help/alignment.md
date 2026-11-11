@@ -3,7 +3,7 @@ title: Lay out a horizontal alignment
 summary: Draw an alignment by its PIs, set curve radii and the start station, move PIs, and read the curve data and station and offset.
 section: tasks
 order: 40
-keywords: alignment, no solution, curve does not fit, largest radius, smallest radius, minimum radius, design speed, overlap, centerline, pi, horizontal curve, radius, stationing, tangent, create alignment, alignment layout, pc, pt, station offset
+keywords: alignment, no solution, curve does not fit, largest radius, smallest radius, minimum radius, design speed, french standard, arp, ictaal, ictavru, dévers, clothoïde, overlap, centerline, pi, horizontal curve, radius, stationing, tangent, create alignment, alignment layout, pc, pt, station offset
 ---
 
 An alignment in CivilCraft is a chain of tangents through points of intersection (PIs), with a circular curve at any interior PI that has a radius. It is stationed from a start station you choose. A project can hold many alignments.
@@ -83,7 +83,23 @@ On a Mac keyboard, the key labeled **delete** is {{key:Backspace}} to the browse
 - [Design a vertical profile](topic:profile).
 ## Design speed and class
 
-Under the alignment's Properties, **Design speed** (km/h or mph) and **Design class** are kept with the alignment, saved in the project and written to IFC (Pset_RoadDesignCriteriaCommon). CivilCraft has no table that ties a speed to a minimum radius, so nothing is checked from them: set **Minimum radius** from your own design standard.
+Under the alignment's Properties, **Design speed** (km/h or mph) and **Design class** are kept with the alignment, saved in the project and written to IFC (Pset_RoadDesignCriteriaCommon). Nothing is checked from the speed itself: set **Minimum radius** from your own design standard, or, for a French road, choose the standard below.
+
+## French design standards (ARP, ICTAAL, ICTAVRU)
+
+Under **Design standard (France)**, choose a standard and a category:
+
+- **ARP 1994** (routes principales): R60, R80, T80, T100. Also the number of lanes, which sets the clothoid length.
+- **ARP 2022**: R1, R2, Artère 110. Its values come from a secondary source and are marked as not yet checked against the guide itself; every report says so.
+- **ICTAAL 2015** (autoroutes de liaison): L1, L2, L2 in difficult relief.
+- **ICTAVRU 2009** (voies rapides urbaines): A80, A100, U60, U80.
+
+The category's values are listed (Rm, Rdm, Rnd, the crest and sag radii, the maximum grade), with the source. Every curve is then checked: under the minimum radius Rm (an error); its superelevation from the standard's law (crown kept from Rnd up, then from 2.5 % to the maximum in 1/R); whether it needs clothoids and how long they should be (with A); and how two curves in a row may follow each other. The design profile is checked too: crest and sag radii (a circular curve's R, or a parabola's L / |Δg|), the maximum grade, and grade breaks with no vertical curve.
+
+- **Use Rm as the design minimum radius** sets the **Minimum radius** above in one step.
+- In the corridor's **Superelevation** block, **Rates from …** fills the rate table from the standard's law: each radius gets the law's value rounded up to the next 0.5 %.
+
+The standards are in metres; in a project in feet the radii are converted. They are tables of data with their source: check them against the guide for a real project.
 
 ## Spirals
 

@@ -14,6 +14,7 @@ import { t } from './i18n.js';
 import { SUPER_DEFAULTS, slopesAt } from './superelev.js';
 import { ncOf } from './corridor.js';
 import { formatStation, fixed } from './units.js';
+import { categoryOf, rateTable } from './standards-fr.js';
 
 export function superProps(ctx, a, item) {
   const { el } = ctx, P = ctx.project(), U = ctx.units();
@@ -38,6 +39,9 @@ export function superProps(ctx, a, item) {
     el('thead', {}, el('tr', {}, el('th', { scope: 'col' }, t('se.rate.r', { u: U === 'm' ? 'm' : 'ft' })), el('th', { scope: 'col' }, t('se.rate.e')), el('th', {}, el('span', { className: 'visually-hidden' }, t('se.rate.remove.col'))))), tbody)));
   out.push(el('button', { type: 'button', className: 'cv-linkbtn', 'data-se-add': '', onclick: () => set(t('se.undo.rate'), (sp) => { sp.rate.push([0, 0.06]); sp.rate.sort((m, n) => n[0] - m[0]); }) }, t('se.rate.add')));
   out.push(el('p', { className: 'cv-note' }, t('se.rate.note')));
+  // the alignment's French design standard (standards-fr.js): its superelevation law as this table, in one step
+  const nf = categoryOf(a.norm), tbl = nf ? rateTable(nf.std, nf.c, U) : null;
+  if (tbl) out.push(el('button', { type: 'button', className: 'btn-line btn-sm-cc', 'data-se-norm': '', onclick: () => { const lbl = t('se.undo.norm', { std: nf.std.short, cat: nf.cat }); set(lbl, (sp) => { sp.rate = tbl.map((r) => [...r]); }); ctx.say?.(lbl); } }, t('se.rate.norm', { std: nf.std.short, cat: nf.cat })));
   // each curve
   const plan = item?.super || null;
   if (plan?.problems?.length) out.push(el('div', { className: 'cv-report is-error' }, el('ul', {}, ...plan.problems.map((m) => el('li', {}, m)))));

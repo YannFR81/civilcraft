@@ -46,6 +46,7 @@ import { ProfileView } from './profile-view.js';
 import { unitOf, formatStation, parseStation, fixed, pct, volumeText, areaText, dms, bearing, isNum, readLength, grouped, newProjectUnits, TABLE_ID as UNIT_TABLE_ID } from './units.js';
 import { limitSelect, onUnitsChange } from './unit-prefs.js';   // 0.7 UNITS: Settings › General › Units
 import { buildProfile } from './profile.js';
+import { STANDARDS, cleanNorm, checkAlignment } from './standards-fr.js';   // French road design standards
 import { polyArea, pointInPoly } from './tin.js';
 import { METHODS as GRID_METHODS } from './gridding.js';   // 0.9 D9.6
 import { normAng } from './alignment.js';
@@ -923,6 +924,7 @@ function init(root) {
       out.push(el('p', { className: 'cv-note' }, t('cv.al.curves.note')));
     }
     if (al.ok) out.push(el('p', { className: 'cv-note' }, t('cv.al.tangent', { b: bearing(al.elements[0].dir ?? al.elements[0].dirIn) })));
+    out.push(...normBlock(a, al));   // the French design standard: the curves and the profile checked against it
     // 0.7.1 71.26: railway — track, gauge, transitions, cant per curve, limits, warnings, the cant diagram, quantities
     if (al.ok) out.push(...railProps({ el, project: () => project, units: () => units(), numInput: (...x) => numInput(...x), row: (...x) => row(...x), say: (m) => say(m) }, a, project.railPlan(a), (eg().surface ? graded().items?.find((x) => x.id === a.id && x.kind === 'corridor') : project.standInCorridors().find((x) => x.id === a.id)) || null));
     // profile
@@ -938,6 +940,42 @@ function init(root) {
       al.ok ? el('button', { type: 'button', className: 'btn-line btn-sm-cc', 'data-pp-open': '', onclick: () => ppUi.open(a.id) }, el('i', { className: 'bi bi-file-earmark-pdf', 'aria-hidden': 'true' }), ' ', t('pp.ui.open')) : null,   // 0.4 V15
       el('button', { type: 'button', className: 'btn-line btn-sm-cc cv-danger', onclick: () => command('delete') }, el('i', { className: 'bi bi-trash3', 'aria-hidden': 'true' }), ' ', t('fl.props.delete'))));
     ui.props.replaceChildren(...out);
+  }
+
+  /** A French design standard (standards-fr.js) for this alignment: the standard, its category and (ARP) the lanes; every
+   *  curve and the design profile checked against it; Rm as the design minimum radius in one step. One undo step per change. */
+  function normBlock(a, al) {
+    const out = [el('h3', { className: 'cv-h3' }, t('nf.head'))], n = cleanNorm(a.norm), U = units();
+    const setN = (label, fn) => project.change(label, () => { const x = findAl(a.id); const nn = { ...(x.norm || {}) }; fn(nn); const c = cleanNorm(nn); if (c) x.norm = c; else delete x.norm; });
+    const sel = el('select', { className: 'cv-select', id: 'cv-nf-std', 'data-nf-std': '' }, el('option', { value: '', selected: !n }, t('nf.none')), ...Object.values(STANDARDS).map((s) => el('option', { value: s.id, selected: n?.std === s.id, title: s.name }, s.short)));
+    sel.addEventListener('change', () => setN(t('nf.undo'), (nn) => { if (nn.std !== sel.value) delete nn.cat; nn.std = sel.value; }));
+    const rows = [...row(t('nf.std'), sel, 'cv-nf-std')];
+    if (!n) { out.push(el('div', { className: 'cv-props' }, ...rows), el('p', { className: 'cv-note' }, t('nf.none.note'))); return out; }
+    const S = STANDARDS[n.std], c = S.categories[n.cat];
+    const cat = el('select', { className: 'cv-select', id: 'cv-nf-cat', 'data-nf-cat': '' }, ...Object.keys(S.categories).map((k) => el('option', { value: k, selected: k === n.cat }, k)));
+    cat.addEventListener('change', () => setN(t('nf.undo'), (nn) => { nn.cat = cat.value; }));
+    rows.push(...row(t('nf.cat'), cat, 'cv-nf-cat'));
+    if (S.clothoid?.length?.formula === 'k_r04') {
+      const ln = el('select', { className: 'cv-select', id: 'cv-nf-lanes', 'data-nf-lanes': '' }, ...[2, 3, 4].map((k) => el('option', { value: String(k), selected: k === (n.lanes || 2) }, String(k))));
+      ln.addEventListener('change', () => setN(t('nf.undo'), (nn) => { nn.lanes = Number(ln.value); }));
+      rows.push(...row(t('nf.lanes'), ln, 'cv-nf-lanes'));
+    }
+    out.push(el('div', { className: 'cv-props' }, ...rows));
+    const vals = [c.rm != null ? 'Rm ' + c.rm : null, c.rdm != null ? 'Rdm ' + c.rdm : null, c.rnd != null ? 'Rnd ' + c.rnd : null, c.crest_min != null ? t('nf.v.crest') + ' ' + c.crest_min : null, c.sag_min != null ? t('nf.v.sag') + ' ' + c.sag_min : null].filter(Boolean).join(' · ');
+    out.push(el('p', { className: 'cv-note', 'data-nf-values': '' }, t('nf.values', { v: vals }) + (c.grade_max != null ? ' · ' + t('nf.v.grade', { g: c.grade_max }) : '')));
+    if (!S.verified) out.push(el('div', { className: 'cv-report', 'data-nf-unverified': '' }, el('p', {}, t('nf.unverified', { note: S.note }))));
+    const rep = al.ok ? checkAlignment(al, a.pvis.length >= 2 ? project.designProfile(a) : null, n, U) : null;
+    if (rep) {
+      const items = rep.findings.map((f) => el('li', { 'data-nf-level': f.level, className: f.level === 'info' ? '' : 'is-' + f.level }, t(f.key, { ...f.args, ...(f.args.sta !== undefined ? { sta: formatStation(f.args.sta, units()) } : {}) })));
+      out.push(el('div', { className: 'cv-report' + (rep.errors ? ' is-error' : ''), 'data-nf-report': '' }, el('p', {}, t('nf.summary', { e: rep.errors, w: rep.warnings })), items.length ? el('ul', {}, ...items) : null));
+      if (U !== 'm') out.push(el('p', { className: 'cv-note' }, t('nf.ft')));
+    }
+    if (c.rm != null) {
+      const rm = U === 'm' ? c.rm : Math.round((c.rm / 0.3048) * 100) / 100;
+      if (a.minR !== rm) out.push(el('div', { className: 'cv-actions' }, el('button', { type: 'button', className: 'btn-line btn-sm-cc', 'data-nf-minr': '', onclick: () => { const lbl = t('why.undo.minr'); project.change(lbl, () => { findAl(a.id).minR = rm; }); say(lbl); } }, t('nf.use.minr', { r: String(rm), u: U === 'm' ? 'm' : 'ft' }))));
+    }
+    out.push(el('p', { className: 'cv-note' }, S.name + '. ' + t('nf.source', { src: S.source })));
+    return out;
   }
 
   /**
