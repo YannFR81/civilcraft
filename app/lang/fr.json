@@ -1886,6 +1886,7 @@
   "mapl.help.xyz": "Une adresse de tuiles contient {{z}}, {{x}} et {{y}} (ou {{-y}}) où vont le zoom, la colonne et la ligne ; {{s}} choisit une lettre de serveur. Les tuiles sont en Mercator web et sont déformées dans le système du projet.",
   "mapl.help.wms": "L'adresse WMS (son lien GetCapabilities convient aussi). CivilCraft demande les couches du serveur, puis une image de la zone à l'écran dans le code EPSG du projet lorsque le serveur le propose, sinon en Mercator web ou WGS 84 (déformée).",
   "mapl.help.wmts": "L'adresse WMTS, ou son WMTSCapabilities.xml. CivilCraft utilise un jeu de matrices de tuiles dans le système du projet s'il en existe un, sinon le Mercator web (déformé).",
+  "mapl.ign.help": "France : les couches de la Géoplateforme IGN en un clic (Mercator web, Licence Ouverte Etalab 2.0). Ou donnez un autre serveur WMTS ci-dessous.",
   "mapl.help.arcgis": "Un service de carte ou d'image ArcGIS : l'adresse se termine par /MapServer ou /ImageServer. Les services en cache en Mercator web sont dessinés à partir de leurs tuiles ; les autres sont demandés sous forme d'une image de la zone à l'écran.",
   "mapl.f.url": "URL",
   "mapl.f.name": "Nom",
