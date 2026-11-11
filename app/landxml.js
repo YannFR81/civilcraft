@@ -7,7 +7,7 @@
  *     surfaces    [{ name, desc, surface, breaklines, boundary }] → Surface: SourceData (Breaklines, Boundaries)
  *                                                                  + Definition surfType="TIN" (Pnts/P, Faces/F)
  *     alignments  [{ name, alignment, eg: {name, pts:[{sta,z}]}, profile: {name, profile} }]
- *                   → Alignment/CoordGeom (Line, Curve crvType="arc", Spiral clothoid) + Profile (ProfSurf, ProfAlign PVI/ParaCurve)
+ *                   → Alignment/CoordGeom (Line, Curve crvType="arc", Spiral clothoid) + Profile (ProfSurf, ProfAlign PVI/ParaCurve/CircCurve)
  *     networks    [{ name, type, structures, pipes }] (pipes.js shape; structures may carry rimShown/sump to write) → PipeNetworks
  *     features    [feature line (featureline.js)] (0.6 WL.24) → PlanFeatures/PlanFeature/CoordGeom: Line and Curve
  *                   (crvType="arc") with 3D Start/End ("N E Z"), the arc's Center 2D, + Feature code="CivilCraft" with
@@ -18,7 +18,7 @@
  *     coordinateSystem  null | { name, epsgCode (number | null), ogcWktCode (text | null), desc } (GIS: offered as the
  *                       project's system when opened)
  *     surfaces    [{ name, desc, pts:[{x,y,z}|null], faces:[[i,j,k]], breaklines:[{name,pts}], boundary:[{x,y}]|null }]
- *     alignments  [{ name, start, pis:[{x,y,r,ls1?,ls2?}], profiles:[{name, pvis:[{sta,z,L}]}], surfProfiles:[{name, pts}] }]
+ *     alignments  [{ name, start, pis:[{x,y,r,ls1?,ls2?}], profiles:[{name, pvis:[{sta,z,L,R?}]}], surfProfiles:[{name, pts}] }]
  *     features    [{ name, pts:[{x,y,z,b?}], closed, use|null }] (0.6 WL.24) from PlanFeatures (Line, Curve, IrregularLine
  *                 PntList3D; Start/Center/End, rot); use from our Feature/Property, else null (the app decides)
  *   scaleImport(data, k)   multiplies every length/elevation/station (unit conversion)
@@ -114,8 +114,11 @@ export function writeLandXml({ name = 'CivilCraft project', units = 'ft', points
         if (fg?.profile?.pvis?.length) {
           L.push(`        <ProfAlign name="${esc(fg.name)}">`);
           fg.profile.pvis.forEach((v, i) => {
-            const curve = i > 0 && i < fg.profile.pvis.length - 1 && v.L > 0;
-            L.push(curve ? `          <ParaCurve length="${num(v.L)}">${num(v.sta)} ${num(v.z)}</ParaCurve>` : `          <PVI>${num(v.sta)} ${num(v.z)}</PVI>`);
+            const inner = i > 0 && i < fg.profile.pvis.length - 1, curve = inner && v.L > 0;
+            // a circular curve (profile.js, R): CircCurve with its radius and its arc length (R · the change of grade angle)
+            const cc = inner && Number(v.R) > 0 ? fg.profile.curves?.find((q) => q.type === 'circ' && Math.abs(q.pvi - v.sta) < 1e-9) : null;
+            if (cc) L.push(`          <CircCurve length="${num(cc.R * Math.abs(Math.atan(cc.g2) - Math.atan(cc.g1)))}" radius="${num(cc.R)}">${num(v.sta)} ${num(v.z)}</CircCurve>`);
+            else L.push(curve ? `          <ParaCurve length="${num(v.L)}">${num(v.sta)} ${num(v.z)}</ParaCurve>` : `          <PVI>${num(v.sta)} ${num(v.z)}</PVI>`);
           });
           L.push('        </ProfAlign>');
         }
@@ -333,8 +336,20 @@ export function readLandXml(text) {
           const v = nums(textOf(c));
           if (c.name === 'PVI' && v.length >= 2) pvis.push({ sta: v[0], z: v[1], L: 0 });
           else if (c.name === 'ParaCurve' && v.length >= 2) pvis.push({ sta: v[0], z: v[1], L: Number(c.attrs.length) || 0 });
-          else if (c.name === 'CircCurve' || c.name === 'UnsymParaCurve') note(t('lx.vc.other')), v.length >= 2 && pvis.push({ sta: v[0], z: v[1], L: 0 });
+          else if (c.name === 'CircCurve' && v.length >= 2) {
+            // a circular vertical curve: its radius, or (no radius given) its length, turned into a radius below
+            const R = Number(c.attrs.radius), Lc = Number(c.attrs.length);
+            pvis.push({ sta: v[0], z: v[1], L: 0, ...(R > 0 ? { R } : Lc > 0 ? { Lc } : {}) });
+          }
+          else if (c.name === 'UnsymParaCurve') note(t('lx.vc.unsym')), v.length >= 2 && pvis.push({ sta: v[0], z: v[1], L: 0 });
         }
+        // CircCurve with a length and no radius: R = arc length / the change of grade angle
+        for (let i = 1; i + 1 < pvis.length; i++) if (pvis[i].Lc > 0) {
+          const a = pvis[i - 1], b = pvis[i], c2 = pvis[i + 1], dth = Math.abs(Math.atan((c2.z - b.z) / (c2.sta - b.sta)) - Math.atan((b.z - a.z) / (b.sta - a.sta)));
+          if (dth > 1e-12) b.R = b.Lc / dth;
+          delete b.Lc;
+        }
+        for (const p of pvis) delete p.Lc;
         if (pvis.length >= 2) rec.profiles.push({ name: pa.attrs.name || t('lx.def.profile'), pvis });
       }
       for (const ps of kids(pr, 'ProfSurf')) {

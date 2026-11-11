@@ -1274,7 +1274,6 @@
   "lx.al.nogeom": "Linjauksella ”{name}” ei ole geometriaa ja se ohitettiin.",
   "lx.al.spirals": "Linjauksella ”{name}” on elementtejä, joita CivilCraft ei vielä osaa piirtää (ei suoria, kaaria tai klotoidisia siirtymäkaaria); se ohitettiin.",
   "lx.al.unread": "Linjausta ”{name}” ei voitu lukea.",
-  "lx.vc.other": "Ympyrä- ja epäsymmetrisiä pystykaaria ei vielä lueta; niiden PVI:t säilytettiin ilman kaarta.",
   "lx.def.profile": "Pituusleikkaus",
   "lx.def.network": "Verkko",
   "lx.net.type": "Putkiverkko ”{name}” on {type}-verkko; se luettiin sadevesiverkkona.",

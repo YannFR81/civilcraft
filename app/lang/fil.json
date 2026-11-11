@@ -1274,7 +1274,6 @@
   "lx.al.nogeom": "Walang geometry ang alignment na \"{name}\" kaya nilaktawan ito.",
   "lx.al.spirals": "May elemento ang alignment na \"{name}\" na hindi pa kayang iguhit ng CivilCraft (hindi linya, arko, o clothoid spiral); nilaktawan ito.",
   "lx.al.unread": "Hindi mabasa ang alignment na \"{name}\".",
-  "lx.vc.other": "Hindi pa nababasa ang pabilog at hindi simetrikong vertical curve; itinago ang kanilang PVI nang walang curve.",
   "lx.def.profile": "Profile",
   "lx.def.network": "Network",
   "lx.net.type": "Ang pipe network na \"{name}\" ay {type} network; binasa itong storm.",

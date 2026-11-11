@@ -1234,7 +1234,6 @@
   "lx.al.nogeom": "路線「{name}」沒有幾何，已略過。",
   "lx.al.spirals": "路線「{name}」含有 CivilCraft 目前尚無法繪製的元素（非直線、圓弧或克羅松緩和曲線），已略過。",
   "lx.al.unread": "無法讀取路線「{name}」。",
-  "lx.vc.other": "圓形與非對稱豎曲線目前尚無法讀取；其 PVI 已保留，但不含曲線。",
   "lx.def.profile": "縱斷面",
   "lx.def.network": "管網",
   "lx.net.type": "管網「{name}」為 {type} 管網；已讀取為雨水管網。",

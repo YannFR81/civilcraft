@@ -1274,7 +1274,6 @@
   "lx.al.nogeom": "La alineación \"{name}\" no tiene geometría y se omitió.",
   "lx.al.spirals": "La alineación \"{name}\" tiene espirales u otros elementos que CivilCraft aún no puede dibujar; se omitió.",
   "lx.al.unread": "No se pudo leer la alineación \"{name}\".",
-  "lx.vc.other": "Las curvas verticales circulares y asimétricas aún no se leen; sus PIV se conservaron sin curva.",
   "lx.def.profile": "Perfil",
   "lx.def.network": "Red",
   "lx.net.type": "La red de tuberías \"{name}\" es una red de tipo {type}; se leyó como pluvial.",

@@ -986,7 +986,9 @@ function init(root) {
     if (vwhy.length) {
       const n = (v) => fixed(v, 2).replace(/,/g, '');
       out.push(el('div', { className: 'cv-report cv-why is-error', 'data-vwhy-block': '' }, el('p', { className: 'cv-why-h' }, t('why.head.error')), el('ul', {}, ...vwhy.map((w) => el('li', { 'data-why': 'vc' },
-        el('p', {}, t(w.side === 'before' ? 'why.vc.before' : 'why.vc.past', { pvi: w.pvi + 1, l: n(w.L), room: n(w.room / 2), u: u().short })),
+        el('p', {}, w.R ? t('why.vc.r', { pvi: w.pvi + 1, r: fixed(w.R, 0), l: n(w.L) , u: u().short }) : t(w.side === 'before' ? 'why.vc.before' : 'why.vc.past', { pvi: w.pvi + 1, l: n(w.L), room: n(w.room / 2), u: u().short })),
+        w.fixR ? el('div', { className: 'cv-actions' }, el('button', { type: 'button', className: 'btn-line btn-sm-cc', 'data-why-fix': 'R' + w.index + ':' + w.fixR,
+          onclick: () => { const lbl = t('why.undo.r', { pvi: w.pvi + 1, r: String(w.fixR) }); project.change(lbl, () => { findAl(a.id).pvis[w.index].R = w.fixR; }); say(lbl); } }, t('why.fix.r', { pvi: w.pvi + 1, r: String(w.fixR) }))) :
         w.fix ? el('div', { className: 'cv-actions' }, el('button', { type: 'button', className: 'btn-line btn-sm-cc', 'data-why-fix': 'L' + w.index + ':' + w.fix,
           onclick: () => { const lbl = t('why.undo.l', { pvi: w.pvi + 1, l: n(w.fix) }); project.change(lbl, () => { const v = findAl(a.id).pvis[w.index]; v.L = w.fix; delete v.K; }); say(lbl); } }, t('why.fix.l', { pvi: w.pvi + 1, l: n(w.fix), k: fixed(w.K, 1), u: u().short }))) : null)))));
     } else if (prof.errors.length) out.push(el('div', { className: 'cv-report is-error' }, el('ul', {}, ...prof.errors.map((e) => el('li', {}, e)))));
@@ -997,15 +999,18 @@ function init(root) {
         el('td', {}, el('button', { type: 'button', className: 'cv-linkbtn', onclick: () => { selPvi = i; renderProfile(); renderProps(); } }, String(i + 1))),
         el('td', {}, numInput(formatStation(v.sta, units()), (x) => { const s = parseStation(x, units()); if (s === null) return false; project.change(t('cv.undo.pvi.sta'), () => { const p = findAl(a.id).pvis; p[i].sta = s; p.sort((m, n) => m.sta - n.sta); }); }, { text: true, station: true, label: t('cv.pvi.sta.of', { n: i + 1 }) })),
         el('td', {}, numInput(fixed(v.z, 2), (x) => { const z = Number(x); if (!Number.isFinite(z) || x === '') return false; project.change(t('cv.undo.pvi.z'), () => { findAl(a.id).pvis[i].z = z; }); }, { label: t('cv.pvi.z.of', { n: i + 1 }) })),
-        el('td', interior ? {} : { className: 'cv-dash' }, interior ? numInput(v.L || 0, (x) => { const L = Number(x); if (!(L >= 0)) return false; project.change(t('cv.undo.pvi.l'), () => { findAl(a.id).pvis[i].L = L; }); }, { label: t('cv.pvi.l.of', { n: i + 1 }), min: 0 }) : '—'),
+        el('td', interior ? {} : { className: 'cv-dash' }, interior ? numInput(v.R > 0 ? fixed(prof.curves.find((q) => q.type === 'circ' && Math.abs(q.pvi - v.sta) < 1e-9)?.L || 0, 2) : v.L || 0, (x) => { const L = Number(x); if (!(L >= 0)) return false; project.change(t('cv.undo.pvi.l'), () => { const q = findAl(a.id).pvis[i]; q.L = L; delete q.R; }); }, { label: t('cv.pvi.l.of', { n: i + 1 }), min: 0 }) : '—'),
+        // a radius makes the curve circular (profile.js); empty or 0 goes back to a parabola of length L
+        el('td', interior ? {} : { className: 'cv-dash' }, interior ? numInput(v.R > 0 ? v.R : '', (x) => { const R = x === '' ? 0 : Number(x); if (!(R >= 0)) return false; project.change(t('cv.undo.pvi.r'), () => { const q = findAl(a.id).pvis[i]; if (R > 0) { q.R = R; delete q.K; } else { delete q.R; q.L = 0; } }); }, { label: t('cv.pvi.r.of', { n: i + 1 }), min: 0 }) : '—'),
         el('td', {}, el('button', { type: 'button', className: 'cv-x', 'aria-label': t('cv.pvi.remove.of', { n: i + 1 }), onclick: () => { project.change(t('cv.undo.pvi.remove'), () => { findAl(a.id).pvis.splice(i, 1); }); selPvi = -1; } }, el('i', { className: 'bi bi-x', 'aria-hidden': 'true' })))));
     });
     out.push(el('div', { className: 'cv-table-wrap' }, el('table', { className: 'cv-table', 'data-pvi-table': '' },
-      el('thead', {}, el('tr', {}, el('th', { scope: 'col' }, t('cv.pvi.col')), el('th', { scope: 'col' }, t('sec.station.label')), el('th', { scope: 'col' }, t('pt.props.elev')), el('th', { scope: 'col' }, t('cv.pvi.col.l')), el('th', {}, el('span', { className: 'visually-hidden' }, t('sec.props.remove'))))), tbody)));
+      el('thead', {}, el('tr', {}, el('th', { scope: 'col' }, t('cv.pvi.col')), el('th', { scope: 'col' }, t('sec.station.label')), el('th', { scope: 'col' }, t('pt.props.elev')), el('th', { scope: 'col' }, t('cv.pvi.col.l')), el('th', { scope: 'col' }, t('cv.pvi.col.r')), el('th', {}, el('span', { className: 'visually-hidden' }, t('sec.props.remove'))))), tbody)));
     if (prof.ok) {
       const lines = prof.grades.map((g, i) => t('cv.prof.grade', { n: i + 1, g: pct(g.g) }));
       for (const c of prof.curves) {
-        lines.push(t(c.kind === 'crest' ? 'cv.prof.crest' : 'cv.prof.sag', { sta: formatStation(c.pvi, units()), l: fixed(c.L, 2), k: fixed(c.K, 1), bvc: formatStation(c.bvc, units()), zbvc: fixed(c.zBvc, 2), evc: formatStation(c.evc, units()), zevc: fixed(c.zEvc, 2) }));
+        if (c.type === 'circ') lines.push(t(c.kind === 'crest' ? 'cv.prof.crest.r' : 'cv.prof.sag.r', { sta: formatStation(c.pvi, units()), r: fixed(c.R, 0), l: fixed(c.L, 2), bvc: formatStation(c.bvc, units()), zbvc: fixed(c.zBvc, 2), evc: formatStation(c.evc, units()), zevc: fixed(c.zEvc, 2) }));
+        else lines.push(t(c.kind === 'crest' ? 'cv.prof.crest' : 'cv.prof.sag', { sta: formatStation(c.pvi, units()), l: fixed(c.L, 2), k: fixed(c.K, 1), bvc: formatStation(c.bvc, units()), zbvc: fixed(c.zBvc, 2), evc: formatStation(c.evc, units()), zevc: fixed(c.zEvc, 2) }));
         const hp = c.high || c.low;
         if (hp) lines.push(t(c.high ? 'cv.prof.high' : 'cv.prof.low', { sta: formatStation(hp.sta, units()), z: fixed(hp.z, 2) }));
       }

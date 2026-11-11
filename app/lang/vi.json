@@ -1234,7 +1234,6 @@
   "lx.al.nogeom": "Tuyến \"{name}\" không có hình học và đã bị bỏ qua.",
   "lx.al.spirals": "Tuyến \"{name}\" có các phần tử CivilCraft chưa vẽ được (không phải đoạn thẳng, cung tròn hay đường xoắn clothoid); đã bị bỏ qua.",
   "lx.al.unread": "Không đọc được tuyến \"{name}\".",
-  "lx.vc.other": "Đường cong đứng tròn và không đối xứng chưa được đọc; các PVI của chúng được giữ nhưng không có đường cong.",
   "lx.def.profile": "Trắc dọc",
   "lx.def.network": "Mạng lưới",
   "lx.net.type": "Mạng ống \"{name}\" là mạng {type}; được đọc là thoát nước mưa.",

@@ -1274,7 +1274,6 @@
   "lx.al.nogeom": "Trassil „{name}“ puudub geomeetria ja see jäeti vahele.",
   "lx.al.spirals": "Trassil „{name}“ on elemente, mida CivilCraft ei oska veel joonistada (need ei ole jooned, kaared ega klotoidspiraalid); see jäeti vahele.",
   "lx.al.unread": "Trassi „{name}“ ei saanud lugeda.",
-  "lx.vc.other": "Ringikujulisi ja mittesümmeetrilisi vertikaalkõveraid ei loeta veel; nende PVI-punktid jäeti alles ilma kõverata.",
   "lx.def.profile": "Pikiprofiil",
   "lx.def.network": "Võrk",
   "lx.net.type": "Torustik „{name}“ on tüüpi {type}; see loeti sademevee torustikuks.",

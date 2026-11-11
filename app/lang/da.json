@@ -1274,7 +1274,6 @@
   "lx.al.nogeom": "Tracéet »{name}« har ingen geometri og blev sprunget over.",
   "lx.al.spirals": "Tracéet »{name}« har elementer, CivilCraft ikke kan tegne endnu (ikke linjer, buer eller klotoide overgangskurver); det blev sprunget over.",
   "lx.al.unread": "Tracéet »{name}« kunne ikke læses.",
-  "lx.vc.other": "Cirkulære og usymmetriske lodrette kurver læses ikke endnu; deres PVI'er blev beholdt uden kurve.",
   "lx.def.profile": "Længdeprofil",
   "lx.def.network": "Net",
   "lx.net.type": "Rørnettet »{name}« er et {type}-net; det blev læst som regnvand.",

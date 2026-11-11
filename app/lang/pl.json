@@ -1384,7 +1384,6 @@
   "lx.al.nogeom": "Oś „{name}” nie ma geometrii i została pominięta.",
   "lx.al.spirals": "Oś „{name}” ma krzywe przejściowe albo inne elementy, których CivilCraft jeszcze nie rysuje; została pominięta.",
   "lx.al.unread": "Nie udało się odczytać osi „{name}”.",
-  "lx.vc.other": "Okrągłe i niesymetryczne łuki pionowe nie są jeszcze odczytywane; ich PVI zachowano bez łuku.",
   "lx.def.profile": "Profil",
   "lx.def.network": "Sieć",
   "lx.net.type": "Sieć rurociągów „{name}” jest typu {type}; odczytano ją jako deszczową.",

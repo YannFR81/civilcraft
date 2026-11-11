@@ -20,7 +20,7 @@
  *   p.toJSON() / Project.fromJSON(obj) → { project, notes }   the .civilcraft.json project file
  *
  * state = { name, units, surface: { name, groups: { [key]: 'off'|'points'|'breakline' }, breaklines: [{name, pts}],
- *           boundary, maxEdge, tin }, display: {…}, alignments: [{ id, name, start, pis:[{x,y,r}], pvis:[{sta,z,L}] }],
+ *           boundary, maxEdge, tin }, display: {…}, alignments: [{ id, name, start, pis:[{x,y,r}], pvis:[{sta,z,L,R?}] }],
  *           pads: [{ id, name, pts:[{x,y}], z, cut, fill }], network: null | pipes.js network,
  *           parcels: [{ id, name, pts:[{x,y,b?}] }] (0.4 V21, parcels.js)
  *           features: [{ id, name, pts:[{x,y,z}], closed, use: 'eg'|'design'|'off', daylight, cut, fill }] (0.4 V14, featureline.js:
@@ -668,7 +668,7 @@ export class Project {
         return { ...xy(q), r, ...(ls1 ? { ls1 } : {}), ...(ls2 ? { ls2 } : {}), ...(tr ? { tr } : {}), ...(cant ? { cant } : {}) };
       }, 1e4);
       if (pis.length < 2) return null;
-      const pvis = list(a.pvis, (v) => (v && fin(v.sta) && fin(v.z) ? { sta: v.sta, z: v.z, L: fin(v.L) && v.L > 0 ? v.L : 0 } : null), 1e4);
+      const pvis = list(a.pvis, (v) => (v && fin(v.sta) && fin(v.z) ? { sta: v.sta, z: v.z, L: fin(v.L) && v.L > 0 ? v.L : 0, ...(fin(v.R) && v.R > 0 && v.R < 1e7 ? { R: v.R } : {}) } : null), 1e4);
       const corridor = a.corridor && typeof a.corridor === 'object' ? cleanCorridor(a.corridor, s.units, tplIds) : null;
       // 0.9 SU.1110: more corridors on this alignment (station ranges), each a corridor of its own
       const more = list(a.corridors, (c) => { if (!c || typeof c !== 'object') return null; const x = cleanCorridor(c, s.units, tplIds); return { id: /^cr\d+$/.test(String(c.id)) ? c.id : p.nextId('cr'), name: str(c.name, 80) || t('tpl.corr.default'), ...x }; }, 20);

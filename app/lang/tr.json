@@ -1274,7 +1274,6 @@
   "lx.al.nogeom": "\"{name}\" ekseninin geometrisi yok ve atlandı.",
   "lx.al.spirals": "\"{name}\" ekseninde CivilCraft'ın henüz çizemediği öğeler var (çizgi, yay ya da klotoid spiral olmayanlar); atlandı.",
   "lx.al.unread": "\"{name}\" ekseni okunamadı.",
-  "lx.vc.other": "Dairesel ve simetrik olmayan düşey eğriler henüz okunmaz; PVI'leri eğrisiz tutuldu.",
   "lx.def.profile": "Boy kesiti",
   "lx.def.network": "Ağ",
   "lx.net.type": "\"{name}\" boru ağı bir {type} ağı; yağmur suyu olarak okundu.",

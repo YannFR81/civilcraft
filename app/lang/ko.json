@@ -1238,7 +1238,6 @@
   "lx.al.nogeom": "선형 \"{name}\"에 기하가 없어 건너뛰었습니다.",
   "lx.al.spirals": "선형 \"{name}\"에는 CivilCraft가 아직 그릴 수 없는 요소(직선, 원호, 클로소이드 나선이 아님)가 있어 건너뛰었습니다.",
   "lx.al.unread": "선형 \"{name}\"을 읽을 수 없습니다.",
-  "lx.vc.other": "원형 및 비대칭 종곡선은 아직 읽지 않습니다. 그 PVI는 곡선 없이 남겼습니다.",
   "lx.def.profile": "종단면도",
   "lx.def.network": "관망",
   "lx.net.type": "관망 \"{name}\"은 {type} 관망입니다. 우수로 읽었습니다.",

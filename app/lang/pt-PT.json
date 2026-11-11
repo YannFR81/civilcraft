@@ -1274,7 +1274,6 @@
   "lx.al.nogeom": "A diretriz \"{name}\" não tem geometria e foi ignorada.",
   "lx.al.spirals": "A diretriz \"{name}\" tem elementos que o CivilCraft ainda não consegue desenhar (que não são retas, arcos nem clotoides); foi ignorada.",
   "lx.al.unread": "Não foi possível ler a diretriz \"{name}\".",
-  "lx.vc.other": "As curvas verticais circulares e assimétricas ainda não são lidas; os seus vértices (PVI) foram mantidos sem curva.",
   "lx.def.profile": "Perfil",
   "lx.def.network": "Rede",
   "lx.net.type": "A rede de coletores \"{name}\" é uma rede {type}; foi lida como pluvial.",

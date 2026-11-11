@@ -1274,7 +1274,6 @@
   "lx.al.nogeom": "Tracé \"{name}\" heeft geen geometrie en is overgeslagen.",
   "lx.al.spirals": "Tracé \"{name}\" heeft elementen die CivilCraft nog niet kan tekenen (geen lijnen, bogen of clothoïde overgangsbogen); het is overgeslagen.",
   "lx.al.unread": "Tracé \"{name}\" kon niet worden gelezen.",
-  "lx.vc.other": "Cirkelvormige en asymmetrische verticale bogen worden nog niet gelezen; hun PVI's zijn bewaard zonder boog.",
   "lx.def.profile": "Profiel",
   "lx.def.network": "Net",
   "lx.net.type": "Leidingnet \"{name}\" is een {type}-net; het is gelezen als hemelwater.",

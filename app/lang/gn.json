@@ -1272,7 +1272,6 @@
   "lx.al.nogeom": "El trazado \"{name}\" no tiene geometría y se omitió.",
   "lx.al.spirals": "El trazado \"{name}\" tiene elementos que CivilCraft todavía no puede dibujar (no son líneas, arcos ni espirales de clotoide); se omitió.",
   "lx.al.unread": "No se pudo leer el trazado \"{name}\".",
-  "lx.vc.other": "Las curvas verticales circulares y asimétricas todavía no se leen; sus PVI se conservaron sin curva.",
   "lx.def.profile": "Perfil",
   "lx.def.network": "Red",
   "lx.net.type": "La red de tuberías \"{name}\" es una red {type}; se leyó como pluvial.",

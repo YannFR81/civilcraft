@@ -1274,7 +1274,6 @@
   "lx.al.nogeom": "El traçat \"{name}\" no té geometria i s'ha omès.",
   "lx.al.spirals": "El traçat \"{name}\" té elements que CivilCraft encara no pot dibuixar (no són rectes, arcs ni clotoides); s'ha omès.",
   "lx.al.unread": "No s'ha pogut llegir el traçat \"{name}\".",
-  "lx.vc.other": "Les corbes verticals circulars i no simètriques encara no es llegeixen; els seus PVI s'han conservat sense corba.",
   "lx.def.profile": "Perfil",
   "lx.def.network": "Xarxa",
   "lx.net.type": "La xarxa de tubs \"{name}\" és de tipus {type}; s'ha llegit com a pluvial.",

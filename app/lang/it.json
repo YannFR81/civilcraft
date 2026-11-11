@@ -1274,7 +1274,6 @@
   "lx.al.nogeom": "Il tracciato \"{name}\" non ha geometria ed è stato saltato.",
   "lx.al.spirals": "Il tracciato \"{name}\" ha clotoidi o altri elementi che CivilCraft non sa ancora disegnare; è stato saltato.",
   "lx.al.unread": "Il tracciato \"{name}\" non si è potuto leggere.",
-  "lx.vc.other": "Le curve verticali circolari e asimmetriche non si leggono ancora; i loro PVI sono stati tenuti senza curva.",
   "lx.def.profile": "Profilo",
   "lx.def.network": "Rete",
   "lx.net.type": "La rete di tubazioni \"{name}\" è di tipo {type}; è stata letta come acque meteoriche.",

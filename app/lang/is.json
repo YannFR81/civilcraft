@@ -1274,7 +1274,6 @@
   "lx.al.nogeom": "Veglínan „{name}“ hefur enga rúmfræði og var sleppt.",
   "lx.al.spirals": "Veglínan „{name}“ hefur þætti sem CivilCraft getur ekki teiknað enn (hvorki línur, boga né klóþóíðaspírala); henni var sleppt.",
   "lx.al.unread": "Ekki tókst að lesa veglínuna „{name}“.",
-  "lx.vc.other": "Hringlaga og ósamhverfar lóðréttar bogar eru ekki lesnir enn; PVI-punktar þeirra voru geymdir án boga.",
   "lx.def.profile": "Langsnið",
   "lx.def.network": "Net",
   "lx.net.type": "Lagnanetið „{name}“ er {type} net; það var lesið sem regnvatnsnet.",

@@ -1274,7 +1274,6 @@
   "lx.al.nogeom": "A(z) „{name}” nyomvonalnak nincs geometriája, ezért ki lett hagyva.",
   "lx.al.spirals": "A(z) „{name}” nyomvonalnak olyan elemei vannak, amelyeket a CivilCraft még nem tud megrajzolni (nem egyenes, ív vagy klotoid átmenet); ki lett hagyva.",
   "lx.al.unread": "A(z) „{name}” nyomvonal nem olvasható.",
-  "lx.vc.other": "A körív és aszimmetrikus függőleges íveket még nem olvassa be; a PVI-k ív nélkül maradtak meg.",
   "lx.def.profile": "Hossz-szelvény",
   "lx.def.network": "Hálózat",
   "lx.net.type": "A(z) „{name}” csőhálózat {type} típusú; csapadékvízként lett beolvasva.",

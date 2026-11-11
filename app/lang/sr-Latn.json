@@ -1314,7 +1314,6 @@
   "lx.al.nogeom": "Osovina trase „{name}“ nema geometriju i preskočena je.",
   "lx.al.spirals": "Osovina trase „{name}“ ima elemente koje CivilCraft zasad ne može da iscrta (nisu linije, lukovi ni klotoidne spirale); preskočena je.",
   "lx.al.unread": "Osovina trase „{name}“ nije mogla da se pročita.",
-  "lx.vc.other": "Kružne i nesimetrične vertikalne krivine se zasad ne čitaju; njihove tačke preloma su zadržane bez krivine.",
   "lx.def.profile": "Profil",
   "lx.def.network": "Mreža",
   "lx.net.type": "Mreža cevi „{name}“ je {type} mreža; pročitana je kao oborinska.",

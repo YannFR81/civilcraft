@@ -1314,7 +1314,6 @@
   "lx.al.nogeom": "Os trasy „{name}“ nemá geometriu a bola preskočená.",
   "lx.al.spirals": "Os trasy „{name}“ má prvky, ktoré CivilCraft zatiaľ nevie nakresliť (nie sú to úsečky, oblúky ani klotoidy); bola preskočená.",
   "lx.al.unread": "Os trasy „{name}“ sa nepodarilo prečítať.",
-  "lx.vc.other": "Kruhové a nesymetrické vertikálne oblúky sa zatiaľ nečítajú; ich PVI boli ponechané bez oblúka.",
   "lx.def.profile": "Pozdĺžny profil",
   "lx.def.network": "Sieť",
   "lx.net.type": "Sieť potrubí „{name}“ je sieť typu {type}; bola prečítaná ako dažďová.",

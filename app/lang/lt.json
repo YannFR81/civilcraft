@@ -1359,7 +1359,6 @@
   "lx.al.nogeom": "Trasa „{name}“ neturi geometrijos ir buvo praleista.",
   "lx.al.spirals": "Trasa „{name}“ turi elementų, kurių CivilCraft dar nemoka nubrėžti (ne tiesių, lankų ar klotoidžių spiralių); ji praleista.",
   "lx.al.unread": "Trasos „{name}“ nepavyko nuskaityti.",
-  "lx.vc.other": "Apskritiminės ir nesimetriškos vertikaliosios kreivės dar nenuskaitomos; jų PVI taškai paliekami be kreivės.",
   "lx.def.profile": "Profilis",
   "lx.def.network": "Tinklas",
   "lx.net.type": "Vamzdynų tinklas „{name}“ yra {type} tinklas; nuskaitytas kaip lietaus nuotekų.",

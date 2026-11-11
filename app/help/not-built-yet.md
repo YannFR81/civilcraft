@@ -37,7 +37,7 @@ CivilCraft is early. This page lists what the current build does not do, so you 
 | Inserting a PI between two others | Redraw the alignment, or retype PI coordinates |
 | Alignments from objects, offsets, widenings | Draw by PIs |
 | Typing K for a vertical curve | Type L (K is shown) |
-| Circular and unsymmetrical vertical curves | Symmetric parabolic curves only |
+| Unsymmetrical vertical curves | Symmetric parabolic curves, or circular curves by radius |
 | More than one design profile per alignment | One alignment per variant |
 | Zooming the profile view, profile bands under the profile | The profile view fits the whole alignment; plot it on [plan and profile sheets](topic:plan-profile-sheets) |
 | Sections in DWG or LandXML | Section sheets as PDF; {{ui:CSV}} of the areas and volumes |

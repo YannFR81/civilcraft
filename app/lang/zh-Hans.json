@@ -1234,7 +1234,6 @@
   "lx.al.nogeom": "路线“{name}”没有几何数据，已被跳过。",
   "lx.al.spirals": "线形“{name}”含有 CivilCraft 尚无法绘制的要素（不是直线、圆弧或回旋线缓和曲线），已跳过。",
   "lx.al.unread": "无法读取路线“{name}”。",
-  "lx.vc.other": "尚不读取圆形和不对称竖曲线；其变坡点被保留，但没有曲线。",
   "lx.def.profile": "纵断面",
   "lx.def.network": "管网",
   "lx.net.type": "管网“{name}”是{type}管网；已按雨水管网读取。",

@@ -1274,7 +1274,6 @@
   "lx.al.nogeom": "Boshti \"{name}\" nuk ka gjeometri dhe u kapërcye.",
   "lx.al.spirals": "Boshti \"{name}\" ka elemente që CivilCraft nuk mund t'i vizatojë akoma (jo vija, harqe ose spirale klotoide); u kapërcye.",
   "lx.al.unread": "Boshti \"{name}\" nuk mund të lexohej.",
-  "lx.vc.other": "Kurbat vertikale rrethore dhe të pasimetrta nuk lexohen akoma; PVI-të e tyre u mbajtën pa kurbë.",
   "lx.def.profile": "Profil gjatësor",
   "lx.def.network": "Rrjet",
   "lx.net.type": "Rrjeti i tubave \"{name}\" është rrjet {type}; u lexua si rrjet i ujit të shiut.",

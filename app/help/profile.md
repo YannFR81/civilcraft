@@ -1,9 +1,9 @@
 ---
 title: Design a vertical profile
-summary: Open the profile view, start a design profile from the ground, add and drag PVIs, set vertical curve lengths, and read grades, K values and high and low points.
+summary: Open the profile view, start a design profile from the ground, add and drag PVIs, set vertical curve lengths or radii, and read grades, K values and high and low points.
 section: tasks
 order: 50
-keywords: profile, vertical alignment, pvi, vertical curve, grade, k value, crest, sag, bvc, evc, profile view, finished grade, fg, existing ground profile, feature lines in profile, crossings, projected, curb, ditch, labels
+keywords: profile, vertical alignment, pvi, vertical curve, circular vertical curve, radius, raccordement, grade, k value, crest, sag, bvc, evc, profile view, finished grade, fg, existing ground profile, feature lines in profile, crossings, projected, curb, ditch, labels
 ---
 
 Each alignment has one design profile: a list of PVIs (station and elevation) joined by straight grades, with a symmetric parabolic vertical curve at any interior PVI that has a length. The existing ground profile is sampled from the surface for you.
@@ -36,7 +36,7 @@ A click where there is already a PVI is refused ("There is already a PVI at …"
 ## Adjust PVIs
 
 - **Drag** a PVI in the profile to move it. It cannot pass its neighbors. The move is one undo step.
-- **Type** exact values in the PVI table in the right panel: **Station**, **Elevation** and **Curve L** (vertical curve length). Press {{key:Enter}} after each.
+- **Type** exact values in the PVI table in the right panel: **Station**, **Elevation**, **Curve L** (vertical curve length) and **Radius R** (a circular curve). Press {{key:Enter}} after each.
 - **Remove** a PVI with the x at the end of its row, or select it (click it) and press {{key:Delete}}. When the profile view has the focus, {{key:Backspace}} also removes it.
 
 The first and last PVI never take a curve.
@@ -49,6 +49,18 @@ The first and last PVI never take a curve.
 K is worked out from L (K = L divided by the algebraic difference in grades, in percent). You type L; typing K directly is not available yet.
 
 If a vertical curve does not fit, a red box says why: it runs back into the PVI or curve before it, or past the next PVI, and how much room there is on that side (a curve needs half its length on each side of its PVI). Its button sets **the longest curve that fits**, with its K, as one step ({{key:Mod+Z}} undoes it). Or move the PVIs apart.
+
+## Circular vertical curves (radius R)
+
+Where the practice is to give a vertical curve by its radius (in France, for example), type the radius in **Radius R** for an interior PVI, for example 5000.
+
+- The curve is the true circle of that radius, tangent to both grades. Its tangent length is T = R × tan(half the change in grade angle); it starts T × cos(back grade angle) before the PVI and ends T × cos(ahead grade angle) after it, so it is not quite centered on the PVI in station.
+- **Curve L** then shows its length in station, worked out from R. Typing a length in **Curve L** goes back to a parabola; clearing **Radius R** (or typing 0) does too.
+- The facts say "Sag at …: circular, R 5000, L …", with the BVC and EVC and the high or low point.
+- If the circle does not fit between its neighbors, the red box says so and its button sets **the largest whole radius that fits**, as one step.
+- At road radii a circle and the parabola of the same radius (K = R / 100) are within a millimetre or so of each other.
+
+Circular curves go to LandXML as `CircCurve` with their radius and come back the same; see [Exchange LandXML](topic:landxml). In IFC they are written as the parabola with the same ends and end grades (within a millimetre or two at road radii).
 
 ## Read the facts
 

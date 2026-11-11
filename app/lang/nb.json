@@ -1274,7 +1274,6 @@
   "lx.al.nogeom": "Veglinjen «{name}» har ingen geometri og ble hoppet over.",
   "lx.al.spirals": "Veglinjen «{name}» har elementer CivilCraft ikke kan tegne ennå (ikke linjer, buer eller klotoider); den ble hoppet over.",
   "lx.al.unread": "Veglinjen «{name}» kunne ikke leses.",
-  "lx.vc.other": "Sirkulære og usymmetriske vertikalkurver leses ikke ennå; PVI-ene deres ble beholdt uten kurve.",
   "lx.def.profile": "Lengdeprofil",
   "lx.def.network": "Nett",
   "lx.net.type": "Rørnettet «{name}» er et {type}-nett; det ble lest som overvann.",

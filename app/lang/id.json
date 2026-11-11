@@ -1234,7 +1234,6 @@
   "lx.al.nogeom": "Alinyemen \"{name}\" tidak memiliki geometri dan dilewati.",
   "lx.al.spirals": "Alinyemen \"{name}\" memiliki elemen yang belum dapat digambar CivilCraft (bukan garis, busur atau spiral klotoid); alinyemen dilewati.",
   "lx.al.unread": "Alinyemen \"{name}\" tidak dapat dibaca.",
-  "lx.vc.other": "Lengkung vertikal lingkaran dan tidak simetris belum dibaca; PVI-nya dipertahankan tanpa lengkung.",
   "lx.def.profile": "Profil",
   "lx.def.network": "Jaringan",
   "lx.net.type": "Jaringan pipa \"{name}\" adalah jaringan {type}; dibaca sebagai drainase hujan.",

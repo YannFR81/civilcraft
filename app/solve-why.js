@@ -16,6 +16,7 @@
  *     straight run; 0 when a neighbour's curve already takes the whole tangent)
  * Vertical (profile.js: a symmetric parabola of length L centred on each inner PVI):
  *   verticalWhy(pvis) → [{ kind: 'vc', pvi (in station order), index (in the list given), L, room, fix (largest L that fits),
+ *     — a PVI with a radius R (circular curve) gives R and fixR (the largest whole radius that fits) instead of fix —
  *     K (that L's K) | null, side 'before' | 'past' }]
  *     a curve may run back to the previous PVI or the end of the previous curve, and on to the next PVI
  * Radii and lengths offered are rounded DOWN to 0.01 (rounded up to 0.01 for a minimum), so they always fit.
@@ -87,6 +88,19 @@ export function verticalWhy(pvisIn) {
   for (let i = 1; i + 1 < pvis.length; i++) {
     const v = pvis[i], g1 = (v.z - pvis[i - 1].z) / (v.sta - pvis[i - 1].sta), g2 = (pvis[i + 1].z - v.z) / (pvis[i + 1].sta - v.sta);
     const A = (g2 - g1) * 100;
+    if (Number(v.R) > 0 && Math.abs(A) >= 1e-9) {
+      // a circular curve (profile.js): T·cos θ1 before the PVI, T·cos θ2 after it, T = R·tan(|Δθ| / 2)
+      const th1 = Math.atan(g1), th2 = Math.atan(g2), tn = Math.tan(Math.abs(th2 - th1) / 2), R = Number(v.R), T = R * tn;
+      const back = v.sta - Math.max(pvis[i - 1].sta, prevEnd), fwd = pvis[i + 1].sta - v.sta;
+      const need1 = T * Math.cos(th1), need2 = T * Math.cos(th2);
+      if (need1 > back + 1e-9 || need2 > fwd + 1e-9) {
+        const rMax = Math.min(back / Math.cos(th1), fwd / Math.cos(th2)) / tn;
+        const fixR = rMax >= 1 ? Math.floor(rMax + 1e-9) : null;   // whole metres, downward
+        out.push({ kind: 'vc', pvi: i, index: v.i0, R, L: need1 + need2, room: 2 * Math.min(back, fwd), fixR, fix: null, K: null, side: need1 - back > need2 - fwd ? 'before' : 'past' });
+        prevEnd = v.sta + (fixR ? fixR * tn * Math.cos(th2) : 0);
+      } else prevEnd = v.sta + need2;
+      continue;
+    }
     let L = Number(v.L) || 0;
     if (!L && Number(v.K) > 0) L = Number(v.K) * Math.abs(A);
     if (!(L > 0) || Math.abs(A) < 1e-9) continue;

@@ -92,6 +92,8 @@ export function verticalSegments(prof, al) {
   let cur = prof.start;
   for (const c of prof.curves) {
     if (c.bvc - cur > 1e-9) raw.push({ type: 'CONSTANTGRADIENT', a: cur, b: c.bvc });
+    // a circular curve (profile.js, type 'circ') goes out as the parabola with the same ends and end grades: its height
+    // differs from the circle's by a millimetre or two at road radii (test-civilcraft-vcircle); CIRCULARARC is left for later
     raw.push({ type: 'PARABOLICARC', a: c.bvc, b: c.evc });
     cur = c.evc;
   }

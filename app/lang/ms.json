@@ -1234,7 +1234,6 @@
   "lx.al.nogeom": "Penjajaran \"{name}\" tiada geometri dan telah dilangkau.",
   "lx.al.spirals": "Penjajaran \"{name}\" mempunyai elemen yang CivilCraft belum boleh lukis (bukan garis, lengkok atau lengkung peralihan klotoid); ia telah dilangkau.",
   "lx.al.unread": "Penjajaran \"{name}\" tidak dapat dibaca.",
-  "lx.vc.other": "Lengkung menegak bulat dan tidak simetri belum dibaca; PVI mereka dikekalkan tanpa lengkung.",
   "lx.def.profile": "Profil",
   "lx.def.network": "Rangkaian",
   "lx.net.type": "Rangkaian paip \"{name}\" ialah rangkaian {type}; ia dibaca sebagai ribut.",

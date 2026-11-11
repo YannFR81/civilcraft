@@ -1274,7 +1274,6 @@
   "lx.al.nogeom": "Linjeföringen ”{name}” har ingen geometri och hoppades över.",
   "lx.al.spirals": "Linjeföringen ”{name}” har element som CivilCraft ännu inte kan rita (inte linjer, bågar eller klotoider); den hoppades över.",
   "lx.al.unread": "Linjeföringen ”{name}” kunde inte läsas.",
-  "lx.vc.other": "Cirkulära och osymmetriska vertikalkurvor läses inte ännu; deras PVI behölls utan kurva.",
   "lx.def.profile": "Profil",
   "lx.def.network": "Nät",
   "lx.net.type": "Ledningsnätet ”{name}” är ett {type}-nät; det lästes som dagvatten.",

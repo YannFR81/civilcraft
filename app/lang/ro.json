@@ -1314,7 +1314,6 @@
   "lx.al.nogeom": "Axul „{name}” nu are geometrie și a fost omis.",
   "lx.al.spirals": "Axul „{name}” are elemente pe care CivilCraft nu le poate desena încă (nu sunt linii, arce sau clotoide); a fost omis.",
   "lx.al.unread": "Axul „{name}” nu a putut fi citit.",
-  "lx.vc.other": "Racordările verticale circulare și nesimetrice nu sunt încă citite; PVI-urile lor au fost păstrate fără curbă.",
   "lx.def.profile": "Profil longitudinal",
   "lx.def.network": "Rețea",
   "lx.net.type": "Rețeaua de conducte „{name}” este o rețea de tip {type}; a fost citită ca pluvială.",

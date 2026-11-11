@@ -1274,7 +1274,6 @@
   "lx.al.nogeom": "“{name}” trassasının həndəsəsi yoxdur və ötürüldü.",
   "lx.al.spirals": "“{name}” trassasında CivilCraft-ın hələ çəkə bilmədiyi elementlər var (xətt, qövs və ya klotoid spiral deyil); ötürüldü.",
   "lx.al.unread": "“{name}” trassası oxuna bilmədi.",
-  "lx.vc.other": "Dairəvi və qeyri-simmetrik şaquli əyrilər hələ oxunmur; onların PVI nöqtələri əyrisiz saxlanıldı.",
   "lx.def.profile": "Profil",
   "lx.def.network": "Şəbəkə",
   "lx.net.type": "“{name}” boru şəbəkəsi {type} şəbəkədir; yağış kimi oxundu.",

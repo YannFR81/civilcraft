@@ -22,7 +22,7 @@ LandXML writes coordinates northing first: a point is "N E" or "N E Z".
 | `CoordGeom` / `Line` | `staStart`, `length`, `Start`, `End` |
 | `CoordGeom` / `Curve` | `crvType` arc, `rot` cw or ccw, `radius`, `length`, `staStart`, `chord`, `delta` (degrees), `tangent`, `external`, `midOrd`; `Start`, `Center`, `End`, `PI` |
 | `Profile` / `ProfSurf` | the existing ground along the alignment, as station and elevation pairs (`PntList2D`), split where it leaves the surface |
-| `Profile` / `ProfAlign` | the design profile (named "<alignment> design"): `PVI` for ends and angle points, `ParaCurve` with `length` for vertical curves |
+| `Profile` / `ProfAlign` | the design profile (named "<alignment> design"): `PVI` for ends and angle points, `ParaCurve` with `length` for vertical curves, `CircCurve` with `length` (arc) and `radius` for circular ones |
 | `Surfaces` / `Surface` | `name` and `desc`; first the existing ground, then "Proposed" when pads or corridors grade |
 | `SourceData` / `Breaklines` / `Breakline` | `brkType` standard, `name`, `PntList3D` (existing ground only) |
 | `SourceData` / `Boundaries` / `Boundary` | `bndType` outer, `edgeTrim` true, `PntList2D` (existing ground only, when there is one) |
@@ -54,7 +54,7 @@ Not written: pads and corridors as objects (their result is the "Proposed" surfa
 
 - Surfaces after the first, grid surfaces and other non-TIN surfaces
 - Alignments that contain `IrregularLine` or `Chain` elements, spirals other than clothoid, a spiral between two curves, or that have no geometry
-- Design profiles after the first; `CircCurve` and `UnsymParaCurve` vertical curves (their PVIs are kept without a curve)
+- Design profiles after the first; `UnsymParaCurve` vertical curves (their PVIs are kept without a curve). `CircCurve` is read: by its `radius`, or from its `length` when it has no radius
 - Points that only refer to other points (`pntRef`), and points without readable coordinates
 - Repeated point names (the first is kept)
 - Hide, show and data-clip boundaries; breaklines without 3D points

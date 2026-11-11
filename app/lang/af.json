@@ -1274,7 +1274,6 @@
   "lx.al.nogeom": "Belyning \"{name}\" het geen geometrie nie en is oorgeslaan.",
   "lx.al.spirals": "Belyning \"{name}\" het elemente wat CivilCraft nog nie kan teken nie (nie lyne, bogte of klotoïde-spiraal nie); dit is oorgeslaan.",
   "lx.al.unread": "Belyning \"{name}\" kon nie gelees word nie.",
-  "lx.vc.other": "Sirkelvormige en ongesimmetriese vertikale kurwes word nog nie gelees nie; hul PVI's is sonder 'n kurwe behou.",
   "lx.def.profile": "Lengteprofiel",
   "lx.def.network": "Netwerk",
   "lx.net.type": "Pypnetwerk \"{name}\" is 'n {type}-netwerk; dit is as storm gelees.",

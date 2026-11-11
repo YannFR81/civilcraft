@@ -1354,7 +1354,6 @@
   "lx.al.nogeom": "Trasa „{name}“ nima geometrije in je bila preskočena.",
   "lx.al.spirals": "Trasa „{name}“ ima elemente, ki jih CivilCraft še ne zna narisati (ne črte, loki ali klotoidne prehodnice); bila je preskočena.",
   "lx.al.unread": "Trase „{name}“ ni bilo mogoče prebrati.",
-  "lx.vc.other": "Krožne in nesimetrične vertikalne krivine se še ne berejo; njihovi PVI so ohranjeni brez krivine.",
   "lx.def.profile": "Vzdolžni profil",
   "lx.def.network": "Omrežje",
   "lx.net.type": "Cevno omrežje „{name}“ je omrežje vrste {type}; prebrano je bilo kot padavinsko.",

@@ -1234,7 +1234,6 @@
   "lx.al.nogeom": "線形「{name}」には形状がないため、読み飛ばしました。",
   "lx.al.spirals": "線形「{name}」には、CivilCraft がまだ描けない要素（直線、円弧、クロソイド緩和曲線以外）が含まれているため、読み飛ばしました。",
   "lx.al.unread": "線形「{name}」を読み込めませんでした。",
-  "lx.vc.other": "円形や非対称の縦曲線はまだ読み込めません。その PVI は曲線なしで残しました。",
   "lx.def.profile": "縦断",
   "lx.def.network": "管路網",
   "lx.net.type": "管路網「{name}」は{type}の管路網です。雨水として読み込みました。",

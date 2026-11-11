@@ -1312,7 +1312,6 @@
   "lx.al.nogeom": "Trasei “{name}” nav ģeometrijas, tāpēc tā tika izlaista.",
   "lx.al.spirals": "Trasei “{name}” ir elementi, ko CivilCraft vēl nevar uzzīmēt (nav taisnes, loki vai klotoīdas spirāles); tā tika izlaista.",
   "lx.al.unread": "Trasi “{name}” nevarēja nolasīt.",
-  "lx.vc.other": "Apļveida un nesimetriskas vertikālās līknes vēl netiek nolasītas; to PVI tika saglabāti bez līknes.",
   "lx.def.profile": "Garenprofils",
   "lx.def.network": "Tīkls",
   "lx.net.type": "Cauruļu tīkls “{name}” ir {type} tīkls; tas tika nolasīts kā lietusūdens.",

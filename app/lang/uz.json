@@ -1274,7 +1274,6 @@
   "lx.al.nogeom": "“{name}” trassasida geometriya yoʻq va oʻtkazib yuborildi.",
   "lx.al.spirals": "“{name}” trassasida CivilCraft hozircha chiza olmaydigan elementlar bor (chiziq, yoy yoki klotoid spiral emas); u oʻtkazib yuborildi.",
   "lx.al.unread": "“{name}” trassasini oʻqib boʻlmadi.",
-  "lx.vc.other": "Aylanma va nosimmetrik vertikal egri chiziqlar hali oʻqilmaydi; ularning PVI nuqtalari egri chiziqsiz saqlandi.",
   "lx.def.profile": "Profil",
   "lx.def.network": "Tarmoq",
   "lx.net.type": "“{name}” quvur tarmogʻi {type} tarmoq; u yomgʻir suvi sifatida oʻqildi.",

@@ -1274,7 +1274,6 @@
   "lx.al.nogeom": "Trasse \"{name}\" hat keine Geometrie und wurde übersprungen.",
   "lx.al.spirals": "Trasse \"{name}\" hat Klothoiden oder andere Elemente, die CivilCraft noch nicht zeichnen kann; sie wurde übersprungen.",
   "lx.al.unread": "Trasse \"{name}\" konnte nicht gelesen werden.",
-  "lx.vc.other": "Kreisförmige und unsymmetrische Ausrundungen werden noch nicht gelesen; ihre PVIs blieben ohne Kurve erhalten.",
   "lx.def.profile": "Längsschnitt",
   "lx.def.network": "Netz",
   "lx.net.type": "Rohrnetz \"{name}\" ist ein Netz vom Typ {type}; es wurde als Regenwasser gelesen.",
