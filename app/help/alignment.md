@@ -90,7 +90,6 @@ Under the alignment's Properties, **Design speed** (km/h or mph) and **Design cl
 Under **Design standard (France)**, choose a standard and a category:
 
 - **ARP 1994** (routes principales): R60, R80, T80, T100. Also the number of lanes, which sets the clothoid length.
-- **ARP 2022**: R1, R2, Artère 110. Its values come from a secondary source and are marked as not yet checked against the guide itself; every report says so.
 - **ICTAAL 2015** (autoroutes de liaison): L1, L2, L2 in difficult relief.
 - **ICTAVRU 2009** (voies rapides urbaines): A80, A100, U60, U80.
 

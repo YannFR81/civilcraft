@@ -3,11 +3,11 @@
  * standards-fr.js — French road design standards as data, and an alignment's check against one. No DOM; the Node test
  * drives it (bin/test-civilcraft-standards-fr.mjs).
  *
- * Nothing here is a number of its own: every value comes from a table below that names its source, and a standard marked
- * verified: false says so in every report. A category value that is null is not checked. Radii in metres (a project in
+ * Nothing here is a number of its own: every value comes from a table below that names its source (ARP 2022 waits until its
+ * tables are read in the guide itself); a standard marked verified: false would say so in every report. A category value that is null is not checked. Radii in metres (a project in
  * feet converts with k = 1 / 0.3048; see checkAlignment).
  *
- *   STANDARDS                         { id → standard: id, short (for a list), name, verified, source, note, … }   ARP 1994, ARP 2022 (unverified), ICTAAL 2015, ICTAVRU 2009
+ *   STANDARDS                         { id → standard: id, short (for a list), name, verified, source, note, … }   ARP 1994, ICTAAL 2015, ICTAVRU 2009
  *   cleanNorm(o) → { std, cat, lanes } | null            (untrusted: the project file; alignment.norm)
  *   categoryOf(norm) → { std, cat: name, c: values } | null
  *   superelevation(std, c, R) → % toward the inside (negative: crown kept) | null (the standard gives no law)
@@ -41,19 +41,6 @@ export const STANDARDS = {
       R80: { rm: 240, rdm: 650, rnd: 900, crest_min: 3000, sag_min: 2200, grade_max: 6 },
       T80: { rm: 240, rdm: 650, rnd: 900, crest_min: 3000, sag_min: 2200, grade_max: 6 },
       T100: { rm: 425, rdm: 900, rnd: 1300, crest_min: 6000, sag_min: 3000, grade_max: 5 },
-    },
-  },
-  ARP2022: {
-    id: 'ARP2022', short: 'ARP 2022', name: 'ARP — Aménagement des routes principales (Cerema, 2022)', verified: false,
-    source: 'ARP, Cerema, août 2022 (DT9075) : chap. 4 tableau 10 (rayons), tableau 11 (raccordements progressifs).',
-    note: 'Valeurs relevées dans une source secondaire, pas dans le guide lui-même : à vérifier et compléter (tableaux 10 et 11, terme de gauchissement de la longueur de clothoïde, profil en long). Rdn sert ici de rayon non déversé et de rayon au dévers minimal.',
-    superelevation: { law: 'inverse_linear', max: 7.0, min: 2.5, crown: -2.5, reduced_max: 5.0 },
-    clothoid: { required_below: 'rnd', factor: 1.0, length: { formula: 'k_r04', k: { 2: 6, 3: 12, 4: 12 }, cap: {} } },
-    chaining: null,
-    categories: {
-      R1: { rm: 240, rdm: 400, rnd: 400 },
-      R2: { rm: 125, rdm: 400, rnd: 400 },
-      Artere110: { rm: null, rdm: 650, rnd: 650 },
     },
   },
   ICTAAL2015: {
